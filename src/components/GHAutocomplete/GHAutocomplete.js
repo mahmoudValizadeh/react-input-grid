@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import Autocomplete from "@mui/material/Autocomplete"
 import CircularProgress from "@mui/material/CircularProgress"
 const GHAutocomplete = ({
@@ -11,32 +11,27 @@ const GHAutocomplete = ({
     dir = "ltr",
     ...props
 }) => {
-    const [width, setWidth] = useState(innerWidth)
-    const [fontSize, setFontSize] = useState(innerFontSize)
-    const [bgColor, setBgColor] = useState(backgroundColor)
     return (
         <Autocomplete
             componentsProps={{
                 paper: {
                     sx: {
-                        width: { width },
+                        width: innerWidth,
                         maxWidth: '90vw',
                         direction: dir,
                         position: "absolute",
-                        fontSize: { fontSize },
+                        fontSize: innerFontSize,
                         right: dir === "rtl" ? "0" : "unset"
                     }
                 }
             }}
-            sx={
-                {
-                    direction: dir,
-                    position: "relative",
-                    background: { bgColor },
-                    borderRadius: 0,
-                    fontSize: { fontSize }
-                }
-            }
+            sx={{
+                direction: dir,
+                position: "relative",
+                background: backgroundColor,
+                borderRadius: 0,
+                fontSize: innerFontSize
+            }}
             size="small"
             isOptionEqualToValue={(option, value) => option?.value === value?.value}
             disableClearable={!allowClear}
