@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import { Link } from 'react-router-dom';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import Guid from 'devextreme/core/guid';
 import { useSearchCodingQuery } from '@kara-erp/shared-lib-header-and-sidebar';
 import { useSearchDetailedAccountQuery } from '@kara-erp/shared-lib-header-and-sidebar';
@@ -46,7 +46,7 @@ export const InputGrid = ({
     notes: '',
     trackingNumber: '',
     trackingDate: null,
-  };
+  }, [i18n, t, codingSearchIsFetching, moeinAccountOpen, detailedOpen4, detailedOpen5, detailedOpen6, formik.values.documentArticles, documentArticlesFocusedRow]);
   function renderBalanceClassName() {
     if (creditsTotal > debitsTotal) {
       return 'balanceFieldGreen';
@@ -237,7 +237,7 @@ export const InputGrid = ({
       moeinAccountSearchFormik.setFieldValue('CompleteCode', value);
       moeinAccountSearchFormik.setFieldValue('FormersNames', '');
     }
-  };
+  }, [i18n, t, detailed4SearchIsFetching, moeinAccountOpen, detailedOpen4, detailedOpen5, detailedOpen6, formik.values.documentArticles, documentArticlesFocusedRow]);
   const debouncedHandleMoeinAccountChange = useMemo(
     () => debounce(moeinAccountSearchFormik.handleSubmit, 500),
     []
@@ -251,7 +251,7 @@ export const InputGrid = ({
       detailed4SearchFormik.setFieldValue('DetailedAccountCode', value);
       detailed4SearchFormik.setFieldValue('DetailedAccountName', '');
     }
-  };
+  }, [i18n, t, detailed5SearchIsFetching, moeinAccountOpen, detailedOpen4, detailedOpen5, detailedOpen6, formik.values.documentArticles, documentArticlesFocusedRow]);
   const debouncedHandleDetailed4Change = useMemo(
     () => debounce(detailed4SearchFormik.handleSubmit, 500),
     []
@@ -265,7 +265,7 @@ export const InputGrid = ({
       detailed5SearchFormik.setFieldValue('DetailedAccountCode', value);
       detailed5SearchFormik.setFieldValue('DetailedAccountName', '');
     }
-  };
+  }, [i18n, t, detailed6SearchIsFetching, moeinAccountOpen, detailedOpen4, detailedOpen5, detailedOpen6, formik.values.documentArticles, documentArticlesFocusedRow]);
   const debouncedHandleDetailed5Change = useMemo(
     () => debounce(detailed5SearchFormik.handleSubmit, 500),
     []
@@ -279,7 +279,7 @@ export const InputGrid = ({
       detailed6SearchFormik.setFieldValue('DetailedAccountCode', value);
       detailed6SearchFormik.setFieldValue('DetailedAccountName', '');
     }
-  };
+  }, [formik.values.documentArticles, documentArticlesFocusedRow, moeinAccountOpen, detailedOpen4, detailedOpen5, detailedOpen6]);
   const debouncedHandleDetailed6Change = useMemo(
     () => debounce(detailed6SearchFormik.handleSubmit, 500),
     []
@@ -288,7 +288,7 @@ export const InputGrid = ({
   /* -------------------------------------------------------------------------- */
 
   /* -------------------------------------------------------------------------- */
-  const CodingCell = (index) => {
+  const CodingCell = useCallback((index) => {
     return (
       <div className={`table-autocomplete position-relative`}>
         <GHAutocomplete
@@ -402,9 +402,9 @@ export const InputGrid = ({
         </Tooltip>
       </div>
     );
-  };
+  }, [formik.values.documentArticles, creditsTotal, debitsTotal]);
 
-  const detailed4Cell = (index) => {
+  const detailed4Cell = useCallback((index) => {
     return (
       <div className={`table-autocomplete position-relative`}>
         <GHAutocomplete
@@ -518,9 +518,9 @@ export const InputGrid = ({
         </Tooltip>
       </div>
     );
-  };
+  }, [formik.values.documentArticles, creditsTotal, debitsTotal, moeinAccountOpen, detailedOpen4, detailedOpen5, detailedOpen6]);
 
-  const detailed5Cell = (index) => {
+  const detailed5Cell = useCallback((index) => {
     return (
       <div className={`table-autocomplete position-relative`}>
         <GHAutocomplete
@@ -633,9 +633,9 @@ export const InputGrid = ({
         </Tooltip>
       </div>
     );
-  };
+  }, [formik.values.documentArticles, documentArticlesFocusedRow, moeinAccountOpen, detailedOpen4, detailedOpen5, detailedOpen6]);
 
-  const detailed6Cell = (index) => {
+  const detailed6Cell = useCallback((index) => {
     return (
       <div className={`table-autocomplete position-relative`}>
         <GHAutocomplete
@@ -748,9 +748,9 @@ export const InputGrid = ({
         </Tooltip>
       </div>
     );
-  };
+  }, [formik.values.documentArticles, documentArticlesFocusedRow, moeinAccountOpen]);
 
-  const debitsCell = (index) => {
+  const debitsCell = useCallback((index) => {
     return (
       <GHCurrencyInput
         onKeyDown={(e) =>
@@ -772,9 +772,9 @@ export const InputGrid = ({
         onBlur={() => CalculateDebitsTotal(formik.values.documentArticles)}
       />
     );
-  };
+  }, [formik.values.documentArticles, documentArticlesFocusedRow, moeinAccountOpen]);
 
-  const switchCell = (index) => {
+  const switchCell = useCallback((index) => {
     return (
       <IconButton
         variant="contained"
@@ -797,7 +797,7 @@ export const InputGrid = ({
     );
   };
 
-  const creditsCell = (index) => {
+  const creditsCell = useCallback((index) => {
     return (
       <GHCurrencyInput
         onKeyDown={(e) =>
@@ -821,7 +821,7 @@ export const InputGrid = ({
     );
   };
 
-  const notesCell = (index) => {
+  const notesCell = useCallback((index) => {
     return (
       <GHInput
         onKeyDown={(e) =>
@@ -843,7 +843,7 @@ export const InputGrid = ({
     );
   };
 
-  const trackingNumberCell = (index) => {
+  const trackingNumberCell = useCallback((index) => {
     return (
       <GHInput
         disabled={
@@ -870,7 +870,7 @@ export const InputGrid = ({
     );
   };
 
-  const trackingDateCell = (index) => {
+  const trackingDateCell = useCallback((index) => {
     return (
       <div
         onKeyDown={(e) => {
