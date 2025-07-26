@@ -1,0 +1,30 @@
+{
+  "scripts": {
+    "build": "babel ./src -d ./dist && npx copyfiles -f ./src/*.css ./dist && npx copyfiles -f ./src/assets/fonts/*.woff ./dist/assets/fonts && npx copyfiles -f ./src/assets/fonts/*.woff2 ./dist/assets/fonts && npx copyfiles -u 1 \"./!(node_modules)/**/*.d.ts\" ./dist"
+  },
+  "name": "react-input-grid",
+  "version": "1.5.0",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "types": "./dist/index.d.ts",
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/style": "^0.8.0",
+    "@mui/material": "^5.14.10",
+    "formik": "^2.4.5",
+    "react-multi-date-picker": "^4.3.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.22.15",
+    "@babel/core": "^7.22.20",
+    "@babel/preset-env": "^7.22.20",
+    "@babel/preset-react": "^7.22.15",
+    "copyfiles": "^2.4.1",
+    "cpy-cli": "^5.0.0",
+    "css-loader": "^6.8.1",
+    "ncp": "^2.0.0",
+    "style-loader": "^3.3.3"
+  }
+}
