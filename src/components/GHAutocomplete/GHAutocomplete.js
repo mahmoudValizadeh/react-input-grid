@@ -37,7 +37,7 @@ const GHAutocomplete = ({
             disableClearable={!allowClear}
             forcePopupIcon={false}
             noOptionsText={noOptionsText}
-            loading
+            loading={loadingState}
             loadingText={loadingState ? <CircularProgress /> : noOptionsText}
             renderInput={(params) => (
                 <div ref={params.InputProps.ref}>
