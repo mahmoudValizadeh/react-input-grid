@@ -66,19 +66,17 @@ export const InputGrid = ({
     }
   }
   function CalculateDebitsTotal(articles) {
-    let debitsTemp = 0;
-    articles.forEach((element) => {
-      debitsTemp += parseFloat(element.debits, 2) || 0;
-      setDebitsTotal(parsFloatFunction(debitsTemp, 2));
-    });
+    const debitsTemp = articles.reduce((acc, element) => {
+      return acc + (parseFloat(element.debits, 2) || 0);
+    }, 0);
+    setDebitsTotal(parsFloatFunction(debitsTemp, 2));
   }
 
   function CalculateCreditsTotal(articles) {
-    let creditsTemp = 0;
-    articles.forEach((element) => {
-      creditsTemp += parseFloat(element.credits, 2) || 0;
-      setCreditsTotal(parsFloatFunction(creditsTemp, 2));
-    });
+    const creditsTemp = articles.reduce((acc, element) => {
+      return acc + (parseFloat(element.credits, 2) || 0);
+    }, 0);
+    setCreditsTotal(parsFloatFunction(creditsTemp, 2));
   }
   /* -------------------------------------------------------------------------- */
   /*                               RTKQuery/Redux                               */
